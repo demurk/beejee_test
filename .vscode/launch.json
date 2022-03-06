@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Django runserver",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "args": ["runserver"],
+      "django": true,
+      "console": "integratedTerminal"
+    },
+
+    {
+      "name": "Python: MakeMigrations",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "args": ["makemigrations"],
+      "django": true,
+      "console": "integratedTerminal"
+    },
+
+    {
+      "name": "Python: Migrate",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "args": ["migrate"],
+      "django": true,
+      "console": "integratedTerminal"
+    },
+
+    {
+      "name": "Python: Django shell",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "args": ["shell"],
+      "django": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
