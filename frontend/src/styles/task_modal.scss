@@ -1,0 +1,63 @@
+@use "master" as var;
+
+.modal-main {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  div {
+    margin-bottom: 5px;
+  }
+
+  textarea {
+    resize: none;
+    min-height: 150px;
+  }
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 50%;
+  min-height: 40%;
+  padding: 20px;
+  border-radius: 25px;
+}
+
+.text-field {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var.$dark;
+  border-radius: 2px;
+}
+
+.modal-checkbox {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  > * {
+    height: 35px;
+    background-color: var.$dark;
+    border: unset;
+    color: var.$light;
+    font-weight: 1000;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+}

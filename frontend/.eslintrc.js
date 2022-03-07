@@ -14,5 +14,7 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "react/prop-types": 0,
+    "no-unused-vars": "off",
+    "react/jsx-key": "off",
   },
 };

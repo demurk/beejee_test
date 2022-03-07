@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Todo(models.Model):
+class Tasks(models.Model):
     email = models.EmailField()
     username = models.CharField(max_length=30)
     description = models.CharField(max_length=150)

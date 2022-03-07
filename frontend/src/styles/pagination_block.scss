@@ -1,0 +1,25 @@
+@use "master" as var;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 10% 0 30px 0;
+
+  > img {
+    width: 40px;
+    height: 40px;
+    margin: 0 3px;
+    cursor: pointer;
+    filter: invert(95%) sepia(17%) saturate(29%) hue-rotate(162deg)
+      brightness(97%) contrast(91%);
+  }
+
+  .pagination-index {
+    font-size: 22px;
+    padding: 0 10px;
+    font-weight: 1000;
+    color: var.$light;
+  }
+}
