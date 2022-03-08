@@ -1,8 +1,8 @@
 @use "master" as var;
 
 body {
-  font-family: "Nunito Sans";
-  letter-spacing: 1px;
+  font-family: "Nunito Sans" !important;
+  letter-spacing: 1px !important;
   margin: 0;
 }
 
@@ -10,7 +10,7 @@ body {
   background-color: var.$dark;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -35,4 +35,9 @@ a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.--react--toast-alert {
+  box-shadow: unset !important;
+  border: 1px solid var.$dark;
 }

@@ -1,6 +1,8 @@
 const initialState = {
-  items: {},
+  items: [],
   isLoading: true,
+  editWindowActive: false,
+  addedNewTask: false,
   totalPages: 1,
 };
 
@@ -9,27 +11,36 @@ const tasks = (state = initialState, action) => {
 
   switch (action.type) {
     case "GET_TASKS": {
-      const newTasks = {};
-      data.results.forEach((element) => {
-        newTasks[element.id] = element;
-      });
-
       return {
-        items: newTasks,
+        ...state,
+        items: data.results,
         isLoading: false,
         totalPages: data.total_pages,
+        addedNewTask: false,
       };
     }
 
     case "ADD_TASK": {
       return {
         ...state,
+        editWindowActive: false,
+        addedNewTask: true,
       };
     }
 
     case "UPDATE_TASK": {
-      const newTasks = {};
-      return {};
+      const newTasks = [...state.items];
+      newTasks.map((el, index) => {
+        if (data.id === el.id) {
+          newTasks[index] = data;
+        }
+      });
+
+      return { ...state, items: newTasks, editWindowActive: false };
+    }
+
+    case "EDIT_ACTIVE": {
+      return { ...state, editWindowActive: data };
     }
 
     case "SET_LOADING": {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { addTask, editTask } from "../redux/actions/tasks";
+import { addTask, editTask, setEditActive } from "../redux/actions/tasks";
 
-import "../styles/task_modal.scss";
+import "../styles/modal.scss";
 
-const TaskModal = ({ active, handler, data = {} }) => {
+const TaskModal = ({ data = {} }) => {
   const data_bool = Object.keys(data).length != 0;
 
   const dispatch = useDispatch();
@@ -16,64 +16,62 @@ const TaskModal = ({ active, handler, data = {} }) => {
   const [status, setStatus] = useState(data_bool ? data.completed : false);
 
   const saveHandler = () => {
-    console.log(data_bool, data, username, email, description, status);
     if (data_bool) {
-      dispatch(editTask(data.id, description));
+      dispatch(editTask({ id: data.id, description, completed: status }));
     } else {
-      dispatch(addTask({ username, email, description, status }));
+      dispatch(addTask({ username, email, description, completed: status }));
     }
   };
 
   return (
-    active && (
-      <div className="modal-main">
-        <div className="modal-content">
+    <div className="modal-main">
+      <div className="modal-content">
+        <div className="modal-fields">
           <div>Username</div>
           <input
-            onChange={() => setUsername(event.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             value={username}
             className="text-field modal-username"
             placeholder="Your username.."
             disabled={data_bool}
           />
-          {data_bool && data.username}
           <div>Email</div>
           <input
-            onChange={() => setEmail(event.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="text-field modal-email"
             placeholder="Your email.."
             disabled={data_bool}
           />
-          {data_bool && data.email}
           <div>Description</div>
           <textarea
-            onChange={() => setDescription(event.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             value={description}
             className="text-field modal-description"
             placeholder="Task description.."
           />
-          {data_bool && data.description}
-          <label
-            className="noselect modal-checkbox"
-            onClick={() => setStatus(!status)}
-            disabled={data_bool}
-          >
-            <input type="checkbox" value={status} />
-            Completed?
+          <label className="noselect modal-checkbox">
+            <input
+              type="checkbox"
+              value={status}
+              onClick={() => setStatus(!status)}
+            />
+            Is completed?
           </label>
-
-          <div className="modal-buttons">
-            <button className="modal-cancel" onClick={() => handler(false)}>
-              Cancel
-            </button>
-            <button className="modal-save" onClick={() => saveHandler()}>
-              Save
-            </button>
-          </div>
+        </div>
+        <div className="modal-buttons">
+          <button
+            className="modal-cancel"
+            onClick={() => dispatch(setEditActive(false))}
+          >
+            Cancel
+          </button>
+          <button className="modal-save" onClick={() => saveHandler()}>
+            Save
+          </button>
         </div>
       </div>
-    )
+    </div>
   );
 };
 
