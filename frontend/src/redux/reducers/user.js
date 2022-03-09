@@ -1,5 +1,5 @@
 const initialState = {
-  token: null,
+  token: localStorage.getItem("token"),
   isAuthenticated: false,
   isAdmin: false,
   authWindowActive: false,
@@ -10,9 +10,11 @@ const user = (state = initialState, action) => {
 
   switch (action.type) {
     case "AUTH_SUCCESS": {
+      localStorage.setItem("token", data.token);
+
       return {
         ...state,
-        isAuthenticated: true,
+        isAuthenticated: data.is_authenticated,
         isAdmin: data.is_superuser,
         authWindowActive: false,
         token: data.token,
@@ -20,7 +22,16 @@ const user = (state = initialState, action) => {
     }
 
     case "AUTH_FAILED": {
+      // localStorage.removeItem("token");
       return { ...initialState, authWindowActive: true };
+    }
+
+    case "LOAD_USER_SUCCESSFULL": {
+      return {
+        ...state,
+        isAuthenticated: data.is_authenticated,
+        isAdmin: data.is_superuser,
+      };
     }
 
     case "SET_AUTH_WINDOW": {
@@ -28,6 +39,7 @@ const user = (state = initialState, action) => {
     }
 
     case "LOGOUT_SUCCESS": {
+      localStorage.removeItem("token");
       return initialState;
     }
 

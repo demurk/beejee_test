@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getTasks, setEditActive } from "../redux/actions/tasks";
-import { logout } from "../redux/actions/user";
+import { loadUser } from "../redux/actions/user";
 
 import Task from "../components/task";
 import LoadingBlock from "../components/loading_block";
@@ -75,7 +75,7 @@ const MainPage = () => {
   }, [editingData]);
 
   useEffect(() => {
-    return () => dispatch(logout());
+    dispatch(loadUser());
   }, []);
 
   return (

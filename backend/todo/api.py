@@ -1,5 +1,4 @@
-from functools import partial
-from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.generics import ListAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from knox.models import AuthToken
@@ -56,7 +55,21 @@ class LoginAPI(GenericAPIView):
         user = serializer.validated_data
 
         return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1],
+            "is_authenticated": user.is_authenticated,
             "is_superuser": user.is_superuser,
+            "token": AuthToken.objects.create(user)[1],
+        })
+
+
+class UserAPI(GenericAPIView):
+    serializer_class = UserSerializer
+
+    def get(self, *args):
+        user = self.request.user
+        # return user
+
+        return Response({
+            "is_authenticated": user.is_authenticated,
+            "is_superuser": user.is_superuser,
+            #"token": (lambda x: self.request.auth.pk if x else None)(self.request.auth),
         })

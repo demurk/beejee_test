@@ -32,6 +32,7 @@ const AuthModal = () => {
             value={password}
             className="text-field modal-password"
             placeholder="Your password.."
+            type="password"
           />
         </div>
         <div className="modal-buttons">
