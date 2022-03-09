@@ -53,7 +53,7 @@ const TaskModal = ({ data = {} }) => {
           <label className="noselect modal-checkbox">
             <input
               type="checkbox"
-              value={status}
+              checked={status}
               onClick={() => setStatus(!status)}
             />
             Is completed?
