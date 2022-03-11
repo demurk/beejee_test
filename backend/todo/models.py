@@ -6,6 +6,7 @@ class Tasks(models.Model):
     username = models.CharField(max_length=30)
     description = models.CharField(max_length=150)
     completed = models.BooleanField(default=False)
+    redacted = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.username} [{self.email}] {self.description}'

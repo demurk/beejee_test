@@ -9,6 +9,7 @@ const Task = ({ data, handler }) => {
           <div className="task-email">{data.email}</div>
         </div>
         <div className="task-text">{data.description}</div>
+        {data.redacted && <div className="task-redacted">Edited by admin</div>}
         <div className={`task-status status-${data.completed}`}>
           {data.completed ? "Done" : "In progress"}
         </div>

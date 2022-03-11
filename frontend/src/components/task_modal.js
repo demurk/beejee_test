@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import { addTask, editTask, setEditActive } from "../redux/actions/tasks";
@@ -14,14 +14,44 @@ const TaskModal = ({ data = {} }) => {
   const [username, setUsername] = useState(data.username);
   const [description, setDescription] = useState(data.description);
   const [status, setStatus] = useState(data_bool ? data.completed : false);
+  const [isRedacted, setRedacted] = useState(
+    data.redacted ? data.redacted : false
+  );
+
+  const isInitialMount = useRef(true);
 
   const saveHandler = () => {
     if (data_bool) {
-      dispatch(editTask({ id: data.id, description, completed: status }));
+      dispatch(
+        editTask({
+          id: data.id,
+          description,
+          completed: status,
+          redacted: isRedacted,
+        })
+      );
     } else {
-      dispatch(addTask({ username, email, description, completed: status }));
+      dispatch(
+        addTask({
+          username,
+          email,
+          description,
+          completed: status,
+        })
+      );
     }
   };
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (!isRedacted) {
+        console.log(isRedacted);
+        setRedacted(true);
+      }
+    }
+  }, [description, status]);
 
   return (
     <div className="modal-main">
@@ -50,14 +80,16 @@ const TaskModal = ({ data = {} }) => {
             className="text-field modal-description"
             placeholder="Task description.."
           />
-          <label className="noselect modal-checkbox">
-            <input
-              type="checkbox"
-              checked={status}
-              onClick={() => setStatus(!status)}
-            />
-            Is completed?
-          </label>
+          {data_bool && (
+            <label className="noselect modal-checkbox">
+              <input
+                type="checkbox"
+                checked={status}
+                onClick={() => setStatus(!status)}
+              />
+              Is completed?
+            </label>
+          )}
         </div>
         <div className="modal-buttons">
           <button

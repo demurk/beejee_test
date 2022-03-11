@@ -66,10 +66,8 @@ class UserAPI(GenericAPIView):
 
     def get(self, *args):
         user = self.request.user
-        # return user
 
         return Response({
             "is_authenticated": user.is_authenticated,
-            "is_superuser": user.is_superuser,
-            #"token": (lambda x: self.request.auth.pk if x else None)(self.request.auth),
+            "is_superuser": user.is_superuser
         })
